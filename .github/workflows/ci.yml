@@ -1,0 +1,63 @@
+name: Build and check
+
+# Runs on every push and pull request. Two jobs, because they answer different
+# questions: does it still compile into a real app, and does the audio engine
+# still do what it claims.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build the app
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: swift --version
+
+      - name: Build and package
+        run: ./build.sh --dmg
+
+      - name: Upload the app
+        uses: actions/upload-artifact@v4
+        with:
+          name: Audio-Cutter-dmg
+          path: build/Audio-Cutter.dmg
+          if-no-files-found: error
+
+  check:
+    name: Headless checks
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      # ffmpeg is optional: without it the MP3, FLAC and lossless-cut checks
+      # skip themselves. It is installed here so the full suite runs, but the
+      # suite is expected to pass either way.
+      - name: Install ffmpeg
+        run: brew install ffmpeg
+
+      - name: Run the checks
+        run: ./Tests/HeadlessCheck/run.sh
+
+      # These need a real audio output device and skip themselves without one,
+      # which is the usual case on a CI runner. Kept in the pipeline so the skip
+      # is visible rather than forgotten.
+      - name: Run the transport checks
+        run: ./Tests/TransportCheck/run.sh
+
+  check-without-ffmpeg:
+    name: Headless checks, no ffmpeg
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      # Proves the promise in the README: the app and its tests work on a Mac
+      # that has nothing else installed.
+      - name: Run the checks with no ffmpeg present
+        run: ./Tests/HeadlessCheck/run.sh

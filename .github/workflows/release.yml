@@ -1,0 +1,62 @@
+name: Release
+
+# Builds the .dmg and attaches it to a GitHub Release.
+#
+# To cut a release:
+#     git tag v0.2.0
+#     git push origin v0.2.0
+#
+# The tag is the version. Nothing else needs editing, and no Mac has to be
+# involved: GitHub's own macOS runner does the build.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write        # needed to create the release and upload the file
+
+jobs:
+  release:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and package
+        run: ./build.sh --dmg
+
+      - name: Verify the disk image opens
+        run: |
+          hdiutil attach build/Audio-Cutter.dmg -nobrowse -readonly -mountpoint /tmp/dmg
+          test -d "/tmp/dmg/Audio Cutter.app" || { echo "app missing from dmg"; exit 1; }
+          hdiutil detach /tmp/dmg -quiet
+          echo "disk image is sound"
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/Audio-Cutter.dmg
+          generate_release_notes: true
+          body: |
+            ## Install
+
+            Download `Audio-Cutter.dmg`, open it, drag **Audio Cutter** to your
+            Applications folder.
+
+            The app is ad-hoc signed rather than notarized (notarization needs a
+            paid Apple Developer account, and this is free software), so the
+            first launch needs one extra step: **right-click the app and choose
+            Open**, then confirm. macOS remembers, and every launch after that is
+            normal.
+
+            Or from the terminal:
+
+            ```
+            xattr -dr com.apple.quarantine "/Applications/Audio Cutter.app"
+            ```
+
+            **Optional:** `brew install ffmpeg` adds MP3 export and lossless MP3
+            cutting. Everything else works without it.
+
+            Requires macOS 14 or later.
