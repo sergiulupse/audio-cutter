@@ -40,28 +40,32 @@ Grab the `.dmg` from the [Releases](../../releases) page, open it, and drag
 
 ### The first launch will be blocked. Here is how to get past it
 
-macOS will refuse to open it and say:
+macOS will refuse to open it:
 
-> **"Audio Cutter.app" Not Opened.** Apple could not verify "Audio Cutter.app" is
-> free of malware that may harm your Mac or compromise your privacy.
+<img src="docs/install-1-blocked.jpg" alt="Dialog: Audio Cutter.app Not Opened. Apple could not verify Audio Cutter.app is free of malware." width="280">
 
-with only **Done** and **Move to Trash** as options. That is expected, and it is
-not really about this app. macOS blocks *any* app that has not been through
-Apple's notarization service, which costs $99 a year. This is free software and
-has not paid for it. Nothing about the warning means malware was found: it means
-nobody paid Apple to check.
+That is expected, and it is not really about this app. macOS blocks *any* app that
+has not been through Apple's notarization service, which costs $99 a year. This is
+free software and has not paid for it. Nothing about the warning means malware was
+found: it means nobody paid Apple to check.
 
-Click **Done** (not Move to Trash), then:
+**Step 1.** Click **Done**, not Move to Trash.
 
-1. Open **System Settings** and go to **Privacy & Security**
-2. Scroll to the **Security** section near the bottom. You will see
-   *"Audio Cutter.app" was blocked to protect your Mac.* Click **Open Anyway**
-3. A second dialog asks *Open "Audio Cutter.app"?* Click **Open Anyway** again
-4. macOS asks for an administrator username and password. Enter it and click
-   **OK**
+**Step 2.** Open **System Settings**, go to **Privacy & Security**, and scroll to
+the **Security** section near the bottom. Click **Open Anyway**.
+
+<img src="docs/install-2-open-anyway.jpg" alt="Privacy and Security panel: Audio Cutter.app was blocked to protect your Mac, with an Open Anyway button." width="470">
+
+**Step 3.** A second dialog appears. Click **Open Anyway** again.
+
+<img src="docs/install-3-confirm.jpg" alt="Dialog: Open Audio Cutter.app? with Move to Trash, Open Anyway and Done buttons." width="280">
+
+**Step 4.** Enter your Mac's administrator username and password, then click **OK**.
+
+<img src="docs/install-4-password.jpg" alt="Privacy and Security password prompt asking for an administrator username and password." width="280">
 
 The app opens, and you are never asked again. Yes, it is four steps and two
-identical-looking warnings. That is Apple's design, not enthusiasm on our part.
+near-identical warnings. That is Apple's design, not enthusiasm on our part.
 
 Two things worth knowing:
 

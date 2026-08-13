@@ -52,14 +52,23 @@ jobs:
             notarization service, and this is free software. Nothing was found
             wrong with it; nobody paid Apple to check it.
 
-            Click **Done**, then:
+            <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-1-blocked.jpg" width="280">
 
-            1. **System Settings** > **Privacy & Security**
-            2. Scroll to **Security** near the bottom. It says *"Audio
-               Cutter.app" was blocked to protect your Mac.* Click **Open Anyway**
-            3. A second dialog asks *Open "Audio Cutter.app"?* Click **Open
-               Anyway** again
-            4. Enter your Mac's administrator username and password, then **OK**
+            **Step 1.** Click **Done**, not Move to Trash.
+
+            **Step 2.** Open **System Settings** > **Privacy & Security**, scroll
+            to **Security** near the bottom, and click **Open Anyway**.
+
+            <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-2-open-anyway.jpg" width="470">
+
+            **Step 3.** A second dialog appears. Click **Open Anyway** again.
+
+            <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-3-confirm.jpg" width="280">
+
+            **Step 4.** Enter your Mac's administrator username and password,
+            then click **OK**.
+
+            <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-4-password.jpg" width="280">
 
             The app opens, and you are never asked again. Four steps and two
             near-identical warnings is Apple's design, not ours. The Open Anyway button only
