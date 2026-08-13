@@ -44,13 +44,40 @@ jobs:
             Download `Audio-Cutter.dmg`, open it, drag **Audio Cutter** to your
             Applications folder.
 
-            The app is ad-hoc signed rather than notarized (notarization needs a
-            paid Apple Developer account, and this is free software), so the
-            first launch needs one extra step: **right-click the app and choose
-            Open**, then confirm. macOS remembers, and every launch after that is
-            normal.
+            ### The first launch will be blocked
 
-            Or from the terminal:
+            macOS will say it "could not verify" the app is free of malware, and
+            offer only **Done** and **Move to Trash**. That is expected: macOS
+            blocks any app that has not been through Apple's $99-a-year
+            notarization service, and this is free software. Nothing was found
+            wrong with it; nobody paid Apple to check it.
+
+            Click **Done**, then:
+
+            1. **System Settings** > **Privacy & Security**
+            2. Scroll to **Security** near the bottom. It says *"Audio
+               Cutter.app" was blocked to protect your Mac.* Click **Open Anyway**
+            3. A second dialog asks *Open "Audio Cutter.app"?* Click **Open
+               Anyway** again
+            4. Enter your Mac's administrator username and password, then **OK**
+
+            The app opens, and you are never asked again. Four steps and two
+            near-identical warnings is Apple's design, not ours. The Open Anyway button only
+            appears for about an hour after the warning; if it is gone,
+            double-click the app again to bring it back.
+
+            On macOS 15 Sequoia and later, right-clicking the app and choosing
+            Open no longer works. Apple removed that path.
+
+            **To avoid the warning completely**, build it yourself. Apps compiled
+            on your own machine are never flagged:
+
+            ```
+            git clone https://github.com/sergiulupse/audio-cutter.git
+            cd audio-cutter && ./build.sh
+            ```
+
+            Or clear the flag after installing:
 
             ```
             xattr -dr com.apple.quarantine "/Applications/Audio Cutter.app"

@@ -38,14 +38,61 @@ welcome.
 Grab the `.dmg` from the [Releases](../../releases) page, open it, and drag
 **Audio Cutter** to your Applications folder.
 
-The app is signed with an ad-hoc signature rather than a paid Apple Developer
-certificate, so the first launch needs one extra step: **right-click the app and
-choose Open**, then confirm. macOS remembers, and every launch after that is
-normal. If you prefer the terminal:
+### The first launch will be blocked. Here is how to get past it
+
+macOS will refuse to open it and say:
+
+> **"Audio Cutter.app" Not Opened.** Apple could not verify "Audio Cutter.app" is
+> free of malware that may harm your Mac or compromise your privacy.
+
+with only **Done** and **Move to Trash** as options. That is expected, and it is
+not really about this app. macOS blocks *any* app that has not been through
+Apple's notarization service, which costs $99 a year. This is free software and
+has not paid for it. Nothing about the warning means malware was found: it means
+nobody paid Apple to check.
+
+Click **Done** (not Move to Trash), then:
+
+1. Open **System Settings** and go to **Privacy & Security**
+2. Scroll to the **Security** section near the bottom. You will see
+   *"Audio Cutter.app" was blocked to protect your Mac.* Click **Open Anyway**
+3. A second dialog asks *Open "Audio Cutter.app"?* Click **Open Anyway** again
+4. macOS asks for an administrator username and password. Enter it and click
+   **OK**
+
+The app opens, and you are never asked again. Yes, it is four steps and two
+identical-looking warnings. That is Apple's design, not enthusiasm on our part.
+
+Two things worth knowing:
+
+- The **Open Anyway** button only shows for about an hour after the warning. If
+  it is not there, double-click the app again to trigger the warning and go
+  straight back to Privacy & Security.
+- On **macOS 15 Sequoia and later**, the old trick of right-clicking the app and
+  choosing Open no longer works. Apple removed it. Any guide still telling you to
+  do that is out of date.
+
+### Two ways to skip the warning entirely
+
+**Build it yourself.** Apps you compile on your own machine are never flagged as
+downloaded, so there is no warning at all. It takes one command and about thirty
+seconds:
+
+```bash
+git clone https://github.com/sergiulupse/audio-cutter.git
+cd audio-cutter && ./build.sh
+```
+
+**Or clear the flag from the terminal**, after dragging the app to Applications:
 
 ```bash
 xattr -dr com.apple.quarantine "/Applications/Audio Cutter.app"
 ```
+
+That removes the "downloaded from the internet" mark macOS attaches to the file.
+It is the standard fix for unnotarized open-source Mac apps, and it is also
+exactly what someone distributing malware would tell you to run. Only do it for
+software you can inspect, which is the entire reason the source is here.
 
 **Optional:** install [ffmpeg](https://ffmpeg.org) for MP3 support.
 

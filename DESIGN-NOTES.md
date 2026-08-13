@@ -73,13 +73,24 @@ people want it constantly.
 
 **ACCEPTED, AND THE REASON FOR THE INSTALL DANCE.** The app is ad-hoc signed, not
 notarized, because notarization requires a $99/year Apple Developer account and
-this is free software. The cost is real: the first launch needs a right-click and
-Open, which looks exactly like what malware would ask you to do. The honest answer
-is that you can read every line of the source and build it yourself in one
-command, which is a better guarantee than a certificate.
+this is free software.
 
-A future macOS could tighten the rules on locally-signed apps. If that happens,
-building from source stays available.
+The cost is real and it got worse in macOS 15. Sequoia removed the Control-click
+to Open bypass, so a new user now meets a dialog offering only "Done" and "Move
+to Trash", and has to go to System Settings > Privacy & Security and click Open
+Anyway, within about an hour of the warning. That is a genuinely bad first
+impression, and it is the single biggest reason someone will delete this app
+before using it.
+
+The honest answer is that you can read every line of the source and build it
+yourself in one command, and a locally built app is never quarantined at all. That
+is a better guarantee than a certificate. But it only helps people who are willing
+to open a terminal.
+
+The real fix, if this ever gets an audience worth the money: join the Apple
+Developer Program, sign with a Developer ID certificate and the hardened runtime,
+then `notarytool submit --wait` and `stapler staple` in the release workflow. It
+is perhaps twenty lines of CI and four secrets.
 
 ## 5. Something in the audio path is broken in a way tests cannot see
 
