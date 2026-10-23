@@ -39,60 +39,47 @@ jobs:
           files: build/Audio-Cutter.dmg
           generate_release_notes: true
           body: |
+            Open an audio file, select the part you want, export it.
+
+            If it helps you - great! I will add more features in the future, you don't have to credit anybody.
+
             ## Install
 
-            Download `Audio-Cutter.dmg`, open it, drag **Audio Cutter** to your
-            Applications folder.
+            Requires macOS 14 or later on Apple Silicon.
 
-            ### The first launch will be blocked
+            Download **Audio-Cutter.dmg** below, open it, drag **Audio Cutter** to Applications.
 
-            macOS will say it "could not verify" the app is free of malware, and
-            offer only **Done** and **Move to Trash**. That is expected: macOS
-            blocks any app that has not been through Apple's $99-a-year
-            notarization service, and this is free software. Nothing was found
-            wrong with it; nobody paid Apple to check it.
+            ### First launch
+
+            The app is not notarized by Apple, so macOS blocks the first launch.
 
             <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-1-blocked.jpg" width="280">
 
-            **Step 1.** Click **Done**, not Move to Trash.
-
-            **Step 2.** Open **System Settings** > **Privacy & Security**, scroll
-            to **Security** near the bottom, and click **Open Anyway**.
+            1. Click **Done**.
+            2. Open **System Settings > Privacy & Security**, scroll to **Security**, click **Open Anyway**.
 
             <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-2-open-anyway.jpg" width="470">
 
-            **Step 3.** A second dialog appears. Click **Open Anyway** again.
+            3. Click **Open Anyway** again.
 
             <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-3-confirm.jpg" width="280">
 
-            **Step 4.** Enter your Mac's administrator username and password,
-            then click **OK**.
+            4. Enter your administrator password, click **OK**.
 
             <img src="https://raw.githubusercontent.com/sergiulupse/audio-cutter/main/docs/install-4-password.jpg" width="280">
 
-            The app opens, and you are never asked again. Four steps and two
-            near-identical warnings is Apple's design, not ours. The Open Anyway button only
-            appears for about an hour after the warning; if it is gone,
-            double-click the app again to bring it back.
+            This is only needed once. The **Open Anyway** button disappears about an hour after the warning; if it is missing, open the app again. On macOS 15 and later, right-click > Open no longer works.
 
-            On macOS 15 Sequoia and later, right-clicking the app and choosing
-            Open no longer works. Apple removed that path.
-
-            **To avoid the warning completely**, build it yourself. Apps compiled
-            on your own machine are never flagged:
-
-            ```
-            git clone https://github.com/sergiulupse/audio-cutter.git
-            cd audio-cutter && ./build.sh
-            ```
-
-            Or clear the flag after installing:
+            To skip the warning, build from source (see README), or run:
 
             ```
             xattr -dr com.apple.quarantine "/Applications/Audio Cutter.app"
             ```
 
-            **Optional:** `brew install ffmpeg` adds MP3 export and lossless MP3
-            cutting. Everything else works without it.
+            ### MP3 support (optional)
 
-            Requires macOS 14 or later.
+            ```
+            brew install ffmpeg
+            ```
+
+            Needed for MP3 export and lossless MP3 cutting. Everything else works without it.
